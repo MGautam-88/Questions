@@ -4,6 +4,7 @@ using namespace std;
 
 bool isMS(vector<vector<int>> &a, int r, int c)
 {
+    if(a[r+1][c+1]!=5)return false;
     bool pre[10] = {false};
     for (int i = 0; i < 3; i++)
     {
