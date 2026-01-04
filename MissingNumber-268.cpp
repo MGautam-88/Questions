@@ -11,13 +11,16 @@ public:
         // return n;
 
         //------------------O(n)-------------------------//
-        int ans=0;
-        for(int i=1;i<=n;i++){
-            ans^=i;
-        }
-        for(int i=0;i<n;i++){
-            ans^=nums[i];//agar 1 se n tak sab honge to x^x = 0 hi hota hai
-        }
-        return ans;
+        // int ans=0;
+        // for(int i=1;i<=n;i++){
+        //     ans^=i;
+        // }
+        // for(int i=0;i<n;i++){
+        //     ans^=nums[i];//agar 1 se n tak sab honge to x^x = 0 hi hota hai
+        // }
+        // return ans;
+
+        //--------------------O(n)----------------------//
+        return (n*(n+1))/2 -accumulate(nums.begin(),nums.end(),0);
     }
 };
