@@ -1,12 +1,33 @@
 class Solution {
 public:
+    // int ck(int a){
+    //     int ct=0;
+    //     int s=0;
+    //     for(int i=2;i<=a/2;i++){
+    //         if(a%i==0){
+    //             ct++;
+    //             s+=i;
+    //         }
+    //         if(ct>2)return 0;
+    //     }
+    //     if(ct==2)return s+a+1;
+    //     return 0;
+    // }
+
     int ck(int a){
         int ct=0;
         int s=0;
-        for(int i=2;i<=a/2;i++){
+        for(int i=2;i*i<=a;i++){
             if(a%i==0){
-                ct++;
-                s+=i;
+                if(i*i==a){
+                    ct++;
+                    s+=i;
+                }
+                else{
+                    ct+=2;
+                    s+=i;
+                    s+=(a/i);
+                }
             }
             if(ct>2)return 0;
         }
