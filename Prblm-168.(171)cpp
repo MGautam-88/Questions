@@ -11,3 +11,14 @@ public:
         return s;
     }
 };
+
+int titleToNumber(string s) {
+        int n =s.size();
+        int ans=0;
+
+        for(int i=0;i<n;i++){
+            ans= ans*26 + int(s[i]-64);
+        }
+
+        return ans;
+    }
