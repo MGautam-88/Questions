@@ -8,16 +8,16 @@ public:
         
         while (n--) {
             int ps = previous.size();
-            vector<int> current;
+            vector<int> curr;
             for (int i = 0; i <= ps; i++) {
                 if (i == 0 || i == ps) {
-                    current.push_back(1);
+                    curr.push_back(1);
                 } else {
-                    current.push_back(previous[i - 1] + previous[i]);
+                    curr.push_back(previous[i - 1] + previous[i]);
                 }
             }
 
-            previous = current;
+            previous = curr;
         }
 
         return previous;
