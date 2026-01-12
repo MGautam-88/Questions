@@ -15,6 +15,7 @@ public:
             int d2=abs(y2-y1);
 
             ans += max(d1,d2);
+            // or min(d1,d2) + abs(d1-d2)
         }
 
         return ans;
