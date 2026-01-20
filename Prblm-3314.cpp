@@ -1,10 +1,14 @@
-#incllude<bits/stdc++.h>
-using namespace std;
+class Solution {
+public:
+    vector<int> minBitwiseArray(vector<int>& a) {
+        int n=a.size();
+        vector<int> b(n,-1);
+        for(int i=0;i<n;i++){
+            for(int x=1;x<1001;x++){
+                if((x | (x+1))==a[i]){b[i]=x;break;}
+            }
+        }
 
-int mian(){
-  int n;cin>>n;
-  int a[n];
-  for(int i=0;i<n;i++){
-    cin>>a[i];
-  }
-}
+        return b;
+    }
+};
