@@ -18,3 +18,20 @@ public:
         return dp[m-1][n-1];
     }
 };
+
+//-----------------------------------SPACE Optimized----------------------------------
+
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        vector<int> rows(n,1);
+
+        for(int i=1;i<m;i++){
+            for(int j=1;j<n;j++){
+                rows[j]=rows[j]+rows[j-1];// jth is elem from top and j-1 is elem from left
+            }
+        }
+
+        return rows[n-1];
+    }
+};
