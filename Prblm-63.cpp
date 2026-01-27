@@ -45,21 +45,15 @@ public:
 
         vector<int> rows(n, 0);
         rows[0] = 1;
-        for (int j = 1; j < n; j++) {
-            if (!o[0][j - 1])rows[j] = 1;
-            else break;
-        }
 
-        for (int i = 1; i < m; i++) {
-            for (int j = 1; j < n; j++) {
-                if ((o[i - 1][j]))rows[j] = 0;
-                if ((o[i][j - 1]))rows[j - 1] = 0;
-                //we are not thinking about 2d dp , we are
-                //handling it using 1D dp so do not worry about in between state of rows 
-                // we need the last m-1 , n-1 th elem only that it!!!!
-                else rows[j] = rows[j] + rows[j - 1];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if ((o[i][j]))rows[j] = 0;
+                else if(j>0)rows[j] = rows[j]+rows[j-1];
             }
         }
         return rows[n - 1];
     }
 };
+//we are not thinking about 2d dp , we are handling it using 1D dp so do not worry about 
+//in between state of rows we need the last m-1 , n-1 th elem only that it!!!!
