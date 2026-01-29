@@ -60,48 +60,54 @@ public:
         return ans;
     }
 };
-// dst Table -> edge -> ck lookup table 
-// we can remove the edge and lookup table and directly use the dst table to calc the ans (if dst is not inf then add it to ans)
+
+// --------------------------------------------------dst Table -> edge -> ck lookup table---------------------------------------------------------------------- 
+// -------------we can remove the edge and lookup table and directly use the dst table to calc the ans (if dst is not inf then add it to ans)------------------
+// ----------------------------------also continue eary if found infinite dist , this improves the code efficiency---------------------------------------------
 
 
-const int inf=1e9;
 class Solution {
 public:
-    long long minimumCost(string a, string b, vector<char>& o, vector<char>& nw, vector<int>& cs) {
-        int n=a.size();
-        int m=o.size();
+    long long minimumCost(string a, string b, vector<char>& o, vector<char>& nw,vector<int>& cs) {
+        int n = a.size();
+        int m = o.size();
 
-        vector<vector<int>> dst(26,vector<int> (26,inf));
+        vector<vector<int>> dst(26, vector<int>(26, INT_MAX));
 
-        for(int i=0;i<26;i++) dst[i][i]=0;
+        for (int i = 0; i < 26; i++)
+            dst[i][i] = 0;
 
-        for(int i=0;i<m;i++){
-            int u= o[i]-'a';//for indexing in dst
-            int v= nw[i]-'a';
-            dst[u][v]=min(dst[u][v],cs[i]);
-        }// now dst will contain direct conversion cost from u to v if it exists 
+        for (int i = 0; i < m; i++) {
+            int u = o[i] - 'a'; // for indexing in dst
+            int v = nw[i] - 'a';
+            dst[u][v] = min(dst[u][v], cs[i]);
+        } // now dst will contain direct conversion cost from u to v if it
+          // exists
 
         // Floyd-Warshall for min cost
-        for(int k=0;k<26;k++){
-            for(int i=0;i<26;i++){
-                for(int j=0;j<26;j++){
-                    if(dst[i][k]<inf && dst[k][j]<inf){
-                        dst[i][j]=min(dst[i][j],(dst[i][k] + dst[k][j]));
+        for (int k = 0; k < 26; k++) {
+            for (int i = 0; i < 26; i++) {
+                if (dst[i][k] < INT_MAX) {
+                    for (int j = 0; j < 26; j++) {
+                        if (dst[k][j] < INT_MAX) {
+                            dst[i][j] = min(dst[i][j], (dst[i][k] + dst[k][j]));
+                        }
                     }
                 }
             }
         }
 
-        long long ans=0;
-        for(int i=0;i<n;i++){
-            if(a[i]==b[i])continue;
+        long long ans = 0;
+        for (int i = 0; i < n; i++) {
+            if (a[i] == b[i])
+                continue;
 
-            int u=a[i]-'a';
-            int v=b[i]-'a';
-            if(dst[u][v]==inf){
+            int u = a[i] - 'a';
+            int v = b[i] - 'a';
+            if (dst[u][v] == INT_MAX) {
                 return -1;
             }
-            ans+=dst[u][v];
+            ans += dst[u][v];
         }
         return ans;
     }
