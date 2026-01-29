@@ -55,3 +55,34 @@ public:
 
         return dp[n-1][n-1];
 //----------------------------------------------------------------------------------------------------------------
+
+//-----------------------------------SPACE Optimized--------------------------------------------------------------
+
+class Solution {
+public:
+    int longestPalindromeSubseq(string a) {
+        int n=a.size();
+        vector<int> dp(n,0);
+
+        bool f=0;
+        for(int j=0;j<n;j++){
+            if(a[0]==a[n-j-1])f=1;
+            if(f)dp[j]=1;
+        }
+
+        for(int i=1;i<n;i++){
+            int prev=dp[0];
+            dp[0] = (a[i] == a[n-1]) ? 1 : dp[0];//this is for the 0th col according to 2d-DP
+            for(int j=1;j<n;j++){
+                int t=dp[j];
+                if(a[i]==a[n-j-1])dp[j]=1+prev;
+                else{
+                    dp[j]=max(dp[j],dp[j-1]);
+                }
+                prev=t;
+            }
+        }
+
+        return dp[n-1];
+    }
+};
