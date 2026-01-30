@@ -22,3 +22,21 @@ public:
 //-------------------------------------------------------------------------------------------
 
 //----------------------------we can use Binary search for O(n* lg n)------------------------
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& a) {
+        vector<int> tails;
+
+        for(int x:a){
+            auto pos=lower_bound(tails.begin(),tails.end(),x);
+            if(pos==tails.end()){
+                tails.push_back(x);//this x will keep the tails sorted
+            }
+            else{
+                *pos=x;
+            }
+        }
+
+        return tails.size();
+    }
+};
