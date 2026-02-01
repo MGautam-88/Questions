@@ -41,3 +41,27 @@ public:
     }
 };
 //-----------------------------------------------------------------------------------
+
+//---------------------Using sum DP upto target O(s*n)-------------------------------
+
+class Solution {
+public:
+    bool canPartition(vector<int>& a) {
+        int sum = accumulate(a.begin(), a.end(), 0);
+        if (sum & 1) return false;
+
+        int target = sum / 2;
+        vector<bool> dp(target + 1, false);
+        dp[0] = true;
+
+        for (int num : a) {
+            for (int x = target; x >= num; x--) {
+                dp[x] = dp[x] || dp[x - num];
+                if(dp[target])return 1;
+            }
+        }
+
+        return dp[target];
+    }
+};
+
