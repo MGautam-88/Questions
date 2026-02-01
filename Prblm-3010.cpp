@@ -14,4 +14,19 @@ public:
 
 //-------------------------------------------------------------
 
-//
+class Solution {
+public:
+    int minimumCost(vector<int>& a) {
+        int x=51,b=51;//as a[i]<=50
+
+        for(int i=1;i<a.size();i++){
+            if(a[i]<x){
+                b=x;
+                x=a[i];
+            }
+            else if(a[i]<b)b=a[i];
+        }
+
+        return a[0]+x+b;
+    }
+}; // O(N)
