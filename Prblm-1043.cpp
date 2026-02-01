@@ -53,10 +53,30 @@ int maxSumAfterPartitioning(vector<int>& a, int k) {
 
         return dp[0];//ous best ans from taking element from 0 to n-1
     }
-};// O(N*k)
+};// O(K*N)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 //------>--->---->---->--->--->---->--->-->->Left to Right DP filling->->-->--->---->--->--->---->---->
 
-//
+class Solution {
+public:
+    int maxSumAfterPartitioning(vector<int>& a, int k) {
+        int n=a.size();
+        vector<int> dp(n,0);
+
+        for(int i=0;i<n;i++){
+            int mx=0;
+            int ans=0;
+
+            for(int len=1;len<=k && len<=i+1 ; len++){
+                mx=max(mx,a[i+1-len]);//basically uss subarray ka last elem
+                int prev = (i-len>=0) ? dp[i-len]:0;//agar dp se hi bahar hai to lenge BASE CASE
+                // jo abhi elem add hua hai usse just pehle wala 
+                ans=max(ans,(mx*len) + prev);
+            }
+            dp[i]=ans;
+        }
+        return dp[n-1];
+    }
+};//O(K*N)
