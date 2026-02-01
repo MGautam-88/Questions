@@ -26,3 +26,37 @@ public:
 };
 
 //-----------------------------------------------------------------------------------------------------------
+
+//--<----<-----<----<-----<----<---<--<--<--<--<-<-<--<-right to left DP filling<--<--<---<---<-----<----<---<---<--<-
+
+class Solution {
+public:
+int maxSumAfterPartitioning(vector<int>& a, int k) {
+        int n=a.size();
+
+        vector<int> dp(n+1,0);//dp[i] represents our ans from i to n-1
+        // so dp[n+1]=0 is our BASE CASE and dp[0] is our answer as we will start from 0 to n-1
+
+        for(int i=n-1;i>=0;i){
+            int len=0;
+            int mx=0;
+            int ans=0;
+
+            for(int j=i;j< min(i+k,n);j++){
+                len++;//sub array mein us elem ko include kar liya
+                mx=max(mx,a[j]);
+                int sum = (mx*len) +dp[j+1];//that's why we used dp[n+1]=0
+                ans=max(ans,sum);
+            }
+            dp[i]=ans;
+        }
+
+        return dp[0];//ous best ans from taking element from 0 to n-1
+    }
+};// O(N*k)
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+//------>--->---->---->--->--->---->--->-->->Left to Right DP filling->->-->--->---->--->--->---->---->
+
+//
