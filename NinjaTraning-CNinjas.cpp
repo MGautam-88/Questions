@@ -37,6 +37,7 @@ int ninjaTraining(int n, vector<vector<int>> &p){
     for(int c = 0; c < 3; c++){
         ans = max(ans, p[0][c] + dp[1][c]);
     }
+    // as there was no previous day for day 0 so we calc using dp[1] and p[0]
 
     return ans;
 }
