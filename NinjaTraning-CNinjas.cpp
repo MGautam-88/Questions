@@ -62,3 +62,5 @@ int ninjaTraining(int n, vector<vector<int>> &p)
     }
     return max({dp[n-1][0],dp[n-1][1],dp[n-1][2]});
 }
+
+// ---------------------------------- Furteher this can be SPACE Optimized using two arrays of size 3 
