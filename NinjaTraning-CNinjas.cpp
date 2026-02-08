@@ -45,4 +45,20 @@ int ninjaTraining(int n, vector<vector<int>> &p){
 
 //------------------------------------------------------------------------------------------------------------------------------------
 
-//
+//now DP moving forward i.e from 0 to n-1 th day---------------------- Simplest DP soln 
+
+#include <algorithm>
+int ninjaTraining(int n, vector<vector<int>> &p)
+{
+    vector<vector<int>> dp(n,vector<int> (3,0));
+    //BASE CASE day 0 --->0th day par past day ki koi restriction nahi hai 
+
+    for(int day=0;day<n;day++){
+        for(int ac=0;ac<3;ac++){
+            if(day==0){dp[0][ac]= p[0][ac];continue;}//base case
+            
+            dp[day][ac]=p[day][ac] + max(dp[day-1][(ac+1)%3] , dp[day-1][(ac+2)%3]);
+        }
+    }
+    return max({dp[n-1][0],dp[n-1][1],dp[n-1][2]});
+}
