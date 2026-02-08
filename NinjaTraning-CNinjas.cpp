@@ -9,7 +9,7 @@ int solve(vector<vector<int>> &p,int n,int c,int i){
 
 int ninjaTraining(int n, vector<vector<int>> &p){
     return max({solve(p,n,0,0),solve(p,n,1,0),solve(p,n,2,0)});
-}
+}//Top-Down approch 0->n-1
 
 //-------------------------------------------------------------------------------------------------------------------------------
 
@@ -24,6 +24,7 @@ int ninjaTraining(int n, vector<vector<int>> &p){
         dp[n-1][c] = max(p[n-1][(c+1)%3], p[n-1][(c+2)%3]);
     }
 
+    // dp[i][c] represents: Maximum points from day i to day n−1 -----> given that activity c was done on day i−1.
     for(int i = n-2; i >= 1; i--){
         for(int c = 0; c < 3; c++){
             dp[i][c] = max(
@@ -37,10 +38,10 @@ int ninjaTraining(int n, vector<vector<int>> &p){
     for(int c = 0; c < 3; c++){
         ans = max(ans, p[0][c] + dp[1][c]);
     }
-    // as there was no previous day for day 0 so we calc using dp[1] and p[0]
+    // as there was no previous day for day 0 so we calc using dp[1] and p[0] to finally give our answer
 
     return ans;
-}
+}//Botom-Up approch n-1 -> 0
 
 //------------------------------------------------------------------------------------------------------------------------------------
 
