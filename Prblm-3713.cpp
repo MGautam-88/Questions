@@ -109,3 +109,39 @@ public:
         return ans;
     }
 };
+
+//-------------------------------------------Further better , decreasing the arithmetic in hot loop , and early break in jth loop
+
+class Solution {
+public:
+    int longestBalanced(string s) {
+        int n=s.size();
+        int ans=0;
+        int fr[26] = {0};
+
+        for(int i=0;i<n;i++){
+            if(n-i<=ans)break;//as ans can't be find in this smaller window further
+
+            int uq=0,mf=0,len=0;
+            int fr[26] = {0};
+             
+            for(int j=i;j<n;j++){
+                if (n - i <= ans) break;
+                int x=s[j]-'a';
+                if(fr[x]==0)uq++;
+
+                fr[x]++;
+                if(fr[x]>mf)mf=fr[x];
+                
+                len++;
+                
+                //agar curr len jyada ya kam hai mf*uq se to matlab sab elem ki freq equal nahi hai
+                if(uq*mf == len && len>ans ){
+                    ans=len;
+                }
+            }
+        }
+
+        return ans;
+    }
+};
