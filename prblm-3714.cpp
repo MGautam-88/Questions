@@ -101,3 +101,49 @@ unordered_map<pair<int,int>, int, pair_hash> firstPos;
 //\\ hence better runtime 
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// Now instead of using vector,pair,hashing ............. , we can make our own mapping function to map (d1 and d2) -> long long number and store them in a un_mp with index
+
+unordered_map<long long, int> firstPos;//({d1,d2},i)
+firstPos[0]=-1;
+
+            //we will make our own mapping  of (d1 and d2) -> a ll number
+            long long key = ((long long)d1 << 32) | (unsigned int)d2;
+            // |---- d1 ----|---- d2 ----|
+            //    32 bits       32 bits
+
+//Complete trice fn with thi our own mapping is 👇👇
+
+int trice(string &s){
+        int n=s.size();
+        int a=0,b=0,c=0;
+        int ans=0;
+
+        unordered_map<long long, int> firstPos;//({d1,d2},i)
+        firstPos[0]=-1;
+
+        for(int i=0;i<n;i++){
+            if(s[i]=='a')a++;
+            else if(s[i]=='b')b++;
+            else c++;
+
+            int d1=a-b;
+            int d2=a-c;
+
+            long long key = ((long long)d1 << 32) | (unsigned int)d2;
+
+            if(firstPos.count(key)){
+                ans=max(ans,i-firstPos[key]);
+            }
+            else {
+                firstPos[key]=i;
+            }
+        }
+
+        return ans;
+    }
+// O(n) but better runtime among all codes above
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//
