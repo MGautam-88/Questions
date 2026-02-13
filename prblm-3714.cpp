@@ -80,4 +80,24 @@ public:
         if(s.size()<3)return s.size();
         return max({single(s),duo(s,'a','b'),duo(s,'a','c'),duo(s,'b','c'),trice(s)});
     }
-};
+};// O(n) + 3*O(n) + O(n * lgN) => O(N * lgN)
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// to improve the overall runtime we can use unordered_map in trice  function as it will look up in avg O(1)
+// but un_mp needs a hash function for storing pairs as in our case , so we will make our own hash Fn
+// but as un_mp needs a container needs a callable object type , instead of a simple function . So we'll make a struct 
+
+struct pair_hash {
+        size_t operator()(const pair<int,int>& p) const {
+            return ( hash<int>() (p.first) ) ^ ( (hash<int>() ((p.second) << 1)) );
+            // return p.first * 31 + p.second;//simple but takes more run time
+        }
+    };
+
+// and will use it in trice function with un_mp as :
+unordered_map<pair<int,int>, int, pair_hash> firstPos;
+// this will cause TC: / O(n) + 3*O(n) + O(n * 1) => O(N) 
+//\\ hence better runtime 
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
