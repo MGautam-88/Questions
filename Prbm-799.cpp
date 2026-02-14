@@ -44,4 +44,26 @@ public:
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
-//
+// We can use SPACE optimization from r^2  to -> r, which we generally do in DP problems
+
+class Solution {
+public:
+    double champagneTower(int q, int r, int c) {
+        vector<double> status(c,0.0);
+        status[0]=q;
+
+        for(int i=0;i<r;i++){
+            for(int j=i;j>=0;j--){
+                double extra = max(0.0 , status[j]-1)/2;
+                //this will check wether there will be extra water for next row or not
+
+                status[j]=extra;//as we have to use this single array only
+                status[j+1]+=extra;
+            }
+        }
+
+        return min(1.0,status[c]);
+    }
+};
+
+//-------------------------------------------------------------------------------------------------------------------------------------------
