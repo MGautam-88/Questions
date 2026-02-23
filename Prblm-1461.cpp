@@ -55,6 +55,7 @@ public:
         for(int i=0;i<k;i++){//1st k digit bits
             code = (code<<1)+(s[i]-'0');
         }
+        int ct=1;//for 1st substring
         seen[code]=1;
         int M =(1<<(k-1))-1;//it is used to remove the MSB bit
         //like k=4 => M=0111 and we will do and opr later that will remove the left bit
@@ -62,10 +63,12 @@ public:
         for(int r=k;r<n;r++){
             code&=M;//MSB removed
             code<<=1;//left shift
-            code|= (s[r]-'0');//added the lsb for the next sub-string
+            code|= (s[r]-'0');//added the lsb for the next sub string
+            if(!seen[code])ct++;
             seen[code]=1;
+            if(ct==(1<<k))return true;
         }
 
-        return seen.count()==(1<<k);//counts the no. of set bits in seen Bitset
+        return ct==(1<<k);//counts the no. of set bits in seen Bitset
     }
 };//O(n + 2^k)
