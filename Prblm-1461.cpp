@@ -5,8 +5,8 @@ public:
 
         int l=0,r=k-1;
         while(r<s.size()){
-            string t(s.begin()+l,s.begin()+r+1);//o(k)
-            c2.insert(t);
+            c2.insert(string(s.begin() + l, s.begin() + r + 1));
+            if(c2.size()==pow(2,k))return 1;
             l++;
             r++;
         }
@@ -41,3 +41,31 @@ public:
 }; //O(10^7)
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------
+
+const int N = 1<<20;//2^20
+bitset<N> seen;
+class Solution {
+public:
+    bool hasAllCodes(string s, int k) {
+        int n= s.size();
+        if(n<k)return 0;
+
+        seen.reset();
+        unsigned code=0;
+        for(int i=0;i<k;i++){//1st k digit bits
+            code = (code<<1)+(s[i]-'0');
+        }
+        seen[code]=1;
+        int M =(1<<(k-1))-1;//it is used to remove the MSB bit
+        //like k=4 => M=0111 and we will do and opr later that will remove the left bit
+
+        for(int r=k;r<n;r++){
+            code&=M;//MSB removed
+            code<<=1;//left shift
+            code|= (s[r]-'0');//added the lsb for the next sub-string
+            seen[code]=1;
+        }
+
+        return seen.count()==(1<<k);//counts the no. of set bits in seen Bitset
+    }
+};//O(n + 2^k)
